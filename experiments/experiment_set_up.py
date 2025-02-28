@@ -68,7 +68,3 @@ if __name__ == "__main__":
             os.makedirs(cur_path, exist_ok=True)
             ##Create encoding
             run_command(encoder_cmd + f" -s2 {pair[0]} {pair[1]} {pair[2]} -t2 {pair[3]} {pair[4]} {pair[5]} -o {cur_path}/encoding.cnf")
-
-
-    ##Finally copy over the runner files
-    shutil.copy(EXPERIMENT_RUNNER_PATH, base_path)
