@@ -49,10 +49,10 @@ if __name__ == "__main__":
         lines_to_run = [x for x in range(len(edges))]
 
     for i in lines_to_run:
-        cur_edges = edges[i].split()[:-1]
+        cur_edges = edges[i].split()[1:-1]
         cur_cnf = f"p cnf {vars} {clauses + len(cur_edges)}\n" + base_cnf + " 0\n".join(cur_edges) + " 0\n"
-        solve_command = f"./{solver_path} -q"
+        solve_command = f"{solver_path} -q"
         sol = run_solver(solve_command, cur_cnf)
 
-        with open(output_path + f"/{i}.cnf", 'w') as f:
+        with open(output_path + f"/solution_{i}.txt", 'w') as f:
             f.write(sol)

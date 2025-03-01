@@ -128,5 +128,14 @@ We can divide this file into individuals solutions using `awk` :-)
 awk '/^v /{file=sprintf("sol_%d.txt", ++count); print > file}' sol.txt
 ```
 As a result, we have files `sol_1.txt`, `sol_2.txt`, and `sol_3.txt`.
-These can now be decoded, as described above.
+These files, however, correspond only to the edge variables, and thus need to be recombined with the original encoding to obtain a full solution. Therefore, we can run
+```
+python3 ../../experiments/reconstruct_sol.py -e sol_1.txt -i encoding.cnf -s kissat
+```
+assuming `kissat` is in the path, and this will generate a folder `sols`.
+
+Finally, to decode this solution, we can run
+```
+python3 ../../encoding/decoder.py -d 1 1 5 1 2 3 -i sols/solution_0.txt -s
+```
 
