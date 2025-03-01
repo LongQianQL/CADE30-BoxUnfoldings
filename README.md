@@ -21,7 +21,7 @@ In terms of solver, this README uses [kissat](https://github.com/arminbiere/kiss
 ## Basic Usage
 To find a common unfolding between boxes of dimensions $(a, b, c), (u, v, w)$ run:
 ```
-python3 encoding/encoder.py -d a b c u v w
+python3 encoding/encoder.py -d <a> <b> <c> <u> <v> <w>
 ```
 As a result, the file `common_unfolding.cnf` will be generated.
 
@@ -94,6 +94,39 @@ where the option `-v 1` can be added to additionally show the edges preserved. -
 To generate all sub-problems for enumerating unfoldings between boxes of dimensions $(a, b, c), (u, v, w)$ do:
 
 ```
-python3 experiment_set_up.py -enc ../encoder/encoder.py -pair ../encoder/find_iso_pairs.py -d a b c u v w --orient2=5 -o .
+sh enumerate.sh <a> <b> <c> <u> <v> <w>
 ```
-If (a, b, c) is of the form (1, 1, n), use `--orient2=0` instead. 
+
+For instance, `sh enumerate.sh 1 1 5 1 2 3` should finish about a minute. As a result, the folder `1x1x5_1x2x3_orient2_0` is created, containing 45 subfolders corresponding to 45 _pairs_. Now, run
+```
+cd 1x1x5_1x2x3_orient2_0/0_0_0_2_0_1_orient2_0
+```
+and observe both an `encoding.cnf` file, corresponding to the instance, and a `sol.txt` file with the satisfying assignments (3 for this pair, but other pairs may have more or 0). Running `cat sol.txt` now, we observe:
+
+```
+c
+s SATISFIABLE
+v 1 -2 3 4 -5 6 -7 8 -9 10 -11 -12 -13 -14 -15 -16 17 18 -19 -20 -21 -22 -23 -24 -25 -26 27 -28 -29 30 -31 -32 -33 34 35 36 37 -38 39 -40 -41 -42 -43 44 0
+n Cummulative solutions 1
+c
+c
+s SATISFIABLE
+v 1 -2 -3 4 -5 6 -7 8 -9 10 -11 -12 -13 -14 -15 -16 17 18 -19 -20 -21 -22 -23 24 -25 -26 27 -28 -29 30 -31 -32 -33 34 35 36 37 -38 39 -40 -41 -42 -43 44 0
+n Cummulative solutions 2
+c
+c
+s SATISFIABLE
+v 1 2 -3 4 -5 6 -7 8 -9 10 -11 -12 -13 -14 -15 -16 17 18 -19 -20 -21 -22 -23 -24 -25 -26 27 -28 -29 30 -31 -32 -33 34 35 36 37 -38 39 -40 -41 -42 -43 44 0
+n Cummulative solutions 3
+c
+s 3 SOLUTIONS
+FINISHED
+```
+We can divide this file into individuals solutions using `awk` :-)
+
+```
+awk '/^v /{file=sprintf("sol_%d.txt", ++count); print > file}' sol.txt
+```
+As a result, we have files `sol_1.txt`, `sol_2.txt`, and `sol_3.txt`.
+These can now be decoded, as described above.
+
