@@ -21,7 +21,6 @@ def get_dim(idx, dims):
     if idx == 2:
         return [dims[2], dims[0]]
 
-
 def get_neigh(face, row, col, dims):
     ##Given the position of a square on the box of dimension dims, returns the positions of the four neighbours
     neigh = []
@@ -415,6 +414,8 @@ def get_model(file):
     vals = f.readlines()
     models = set()
     for v in vals:
+        if len(v) == 0 or v[0] != 'v':
+            continue
         cur_line = v.split()
         for val in cur_line:
             try:
@@ -423,6 +424,7 @@ def get_model(file):
             except ValueError:
                 pass
     return models
+    
 def draw_decode(grid, orientations, save_path, show_fig):
     ##Prints the decoded grid in grids
     grid, orientations = format_grid(grid), format_grid(orientations)
