@@ -34,7 +34,7 @@ A solution is obtained in about 1 second. To decode the solution, run
 ```
 python3 encoding/decoder.py -d 1 1 5 1 2 3 -i solution.txt -s
 ```
-As a result, one gets two images:
+As a result, one gets two images (note that as there are many solutions, depending on the solver one might get a different solution here):
 
 <p>
   <img alt="First unfolding" src="readme_imgs/Figure_1.png" width="45%">
