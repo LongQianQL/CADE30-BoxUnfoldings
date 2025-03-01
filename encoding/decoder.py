@@ -584,7 +584,7 @@ if __name__ == "__main__":
     parser.add_argument('-g', '--grid', type=int, help='Size of square grid canvas, default = 30', default=30)
     parser.add_argument('-a', '--activation', type=int, help='Max activation time allowed (radius of the unfolded polygon), default = 12', default=12)
     parser.add_argument('-o', '--output', type=str, help='Path to output decoding, pictures not saved if empty. Default is empty', default='')
-    parser.add_argument('-s', '--show', type=int, help='Flag to decide if figure is drawn. Nonzero to draw, 0 to hide. Default = 0', default=0)
+    parser.add_argument('-s', '--show', action='store_true', help='Flag to show the decoded grid')
     parser.add_argument('-i', '--input', type=str, help='Path to input solution', required=True)
     parser.add_argument('-e', '--edge', type=str, help='Path to file outputting disconnected edges of the first box. Default = "" no output', default="")
     parser.add_argument('-ec', '--edge_connected', type=str, help='Path to file outputting connected edges of the first box. Default = "" no output', default="")

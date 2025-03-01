@@ -741,7 +741,7 @@ if __name__ == "__main__":
                         help='Probability of an edge being fixed on the given face. Has no effect if -f = 1, default of p = 1',
                         default=1)
     parser.add_argument('-o', '--output', type=str, help='Path to output encoding, default: encoding.cnf',
-                        default='encoding.cnf')
+                        default='common_unfolding.cnf')
     parser.add_argument('-r', '--reduce', type=int, help='Size reduction for face fixing, default: 0', default=0)
     parser.add_argument( '--orient2', type=int, help='Fixing orientation of s2.', default=-1)
     parser.add_argument( '--orient3', type=int, help='Fixing orientation of s3.', default=-1)
